@@ -19,7 +19,9 @@ def authenticate():
 
 
 def main():
-    authenticate()
+    api = authenticate()
+    if api:
+        api.update_status("Test tweet from bot")
 
 if __name__ == '__main__':
     main()
