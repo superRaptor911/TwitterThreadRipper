@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo "--------------BOT SETUP--------------------------"
+echo "Enter AUTH_HANDLER_KEY"
+read AUTH_HANDLER_KEY
+
+echo "Enter AUTH_HANDLER_PRIVATE_KEY"
+read AUTH_HANDLER_PRIVATE_KEY
+
+echo "Enter ACCESS_TOKEN"
+read ACCESS_TOKEN
+
+echo "Enter ACCESS_TOKEN_PRIVATE"
+read ACCESS_TOKEN_PRIVATE
+
+echo -e "#Bot Secret\n\nAUTH_HANDLER_KEY = \"$AUTH_HANDLER_KEY\"\nAUTH_HANDLER_PRIVATE_KEY = \"$AUTH_HANDLER_PRIVATE_KEY\"\nACCESS_TOKEN = \"$ACCESS_TOKEN\"\nACCESS_TOKEN_PRIVATE = \"$ACCESS_TOKEN_PRIVATE\"\n" > Secret.py
+echo "Bot Config Done!"
+
