@@ -4,7 +4,7 @@ import json
 import Secret
 import time
 
-SERVER = "http://twitterbot.com/server"
+SERVER = "http://twitterthreadripper.ml/server"
 BOT_NAME = "SuperRaptorBot"
 
 # Authentication
@@ -146,7 +146,7 @@ def main():
     api = authenticate()
     while True:
         fromID = getLastProcessedThreadID()
-        checkMentions(api, ["here"], fromID)
+        checkMentions(api, ["save"], fromID)
         print("Waiting 60 seconds.....")
         time.sleep(60)
 
