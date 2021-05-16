@@ -4,7 +4,8 @@ import json
 import Secret
 import time
 
-SERVER = "http://twitterthreadripper.ml/server"
+# SERVER = "http://twitterthreadripper.ml/server"
+SERVER = "http://twitterbot.com/server"
 BOT_NAME = "SuperRaptorBot"
 
 # Authentication
@@ -24,10 +25,19 @@ def authenticate():
     return api
 
 
+def extractTextFromTweet(tweet):
+    text = ""
+    if 'retweeted_status' in dir(tweet):
+        text=tweet.retweeted_status.full_text
+    else:
+        text=tweet.full_text
+    return text
+
+
 def getCompactTweet(tweet):
     return {
             "id": tweet.id_str,
-            "text": tweet.text,
+            "text": extractTextFromTweet(tweet),
             "name": tweet.user.name,
             "username": tweet.user.screen_name,
             "time": str(tweet.user.created_at),
@@ -45,7 +55,7 @@ def getRootTweet(api, tweet):
     if tweet.in_reply_to_status_id == None:
         print("Got root!")
         return tweet
-    parent = api.get_status(tweet.in_reply_to_status_id)
+    parent = api.get_status(tweet.in_reply_to_status_id, tweet_mode="extended")
     return getRootTweet(api, parent)
 
 
@@ -54,10 +64,10 @@ def getReplies(api, parentTweet):
     tweetID = parentTweet.id
     name = parentTweet.user.screen_name
     replies=[]
-    for tweet in tweepy.Cursor(api.search,q='to:'+name, result_type='recent', timeout=99999).items(1000):
+    for tweet in tweepy.Cursor(api.search,q='to:'+name, result_type='recent', timeout=99999, tweet_mode="extended").items(1000):
         if hasattr(tweet, 'in_reply_to_status_id'):
             if tweet.in_reply_to_status_id == tweetID:
-                print("Got sub tweet : " + tweet.text)
+                # print("Got sub tweet : " + tweet.text)
                 replies.append(getReplies(api, tweet))
     return {"tweet": getCompactTweet(parentTweet), "replies": replies}
 
@@ -65,7 +75,7 @@ def getReplies(api, parentTweet):
 
 def getThreadTree(api, root):
     print("Geting Thread tree for " + root.id_str)
-    print("Tweet: " + root.text)
+    # print("Tweet: " + root.text)
     threadTree = getReplies(api, root)
     return threadTree
 

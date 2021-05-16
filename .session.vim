@@ -7,8 +7,9 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +2 main.py
-badd +1 .gitignore
+badd +33 main.py
+badd +16 setup.sh
+badd +2 Secret.py
 argglobal
 %argdel
 edit main.py
@@ -20,28 +21,13 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '2resize ' . ((&lines * 3 + 22) / 45)
-exe 'vert 2resize ' . ((&columns * 1 + 87) / 174)
-exe '3resize ' . ((&lines * 3 + 22) / 45)
-exe 'vert 3resize ' . ((&columns * 73 + 87) / 174)
 argglobal
-let s:l = 2 - ((1 * winheight(0) + 21) / 43)
+let s:l = 25 - ((7 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-2
-normal! 013|
-wincmd w
-argglobal
-enew
-wincmd w
-argglobal
-enew
-wincmd w
-exe '2resize ' . ((&lines * 3 + 22) / 45)
-exe 'vert 2resize ' . ((&columns * 1 + 87) / 174)
-exe '3resize ' . ((&lines * 3 + 22) / 45)
-exe 'vert 3resize ' . ((&columns * 73 + 87) / 174)
+25
+normal! 014|
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
