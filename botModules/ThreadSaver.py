@@ -12,6 +12,8 @@ def getTweetsTillRoot(api, fromTweet):
 
     while parent and parent.in_reply_to_status_id != None:
         parent = api.get_status(parent.in_reply_to_status_id, tweet_mode="extended")
+        spaces = '  ' * Current_reccursion_level
+        print(spaces + "Got sub tweet for : " + parent.user.screen_name)
         arr.append(Utility.getCompactTweet(parent))
     return arr
 
@@ -89,6 +91,7 @@ def saveThread(api, originTweet):
     if Network.lockThreadID(threadID):
         print(f"Evaluating user:{originTweet.user.name}")
         thread = getTweetsTillRoot(api, originTweet)
+        thread = thread[::-1]
 
         if len(thread) == 0:
             print("Empty Thread : for Thread id: " + threadID)
