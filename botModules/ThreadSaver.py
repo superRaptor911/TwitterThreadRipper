@@ -102,8 +102,9 @@ def saveThread(api, originTweet):
 
 
 def main(api, originTweet, args):
-    if "full" in args:
+    if 'full' in args:
         saveFullThread(api, originTweet)
     else:
         saveThread(api, originTweet)
+        print("just save")
 

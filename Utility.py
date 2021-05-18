@@ -36,3 +36,11 @@ def getCompactTweet(tweet, isExtended = True):
             "retweets": tweet.retweet_count,
     }
 
+
+def truncText(text : str, size) -> str:
+    strLen = len(text)
+    if strLen <= size:
+        return text
+    if size > 3:
+        return text[0: size - 3] + "..."
+    return text[0:size]
