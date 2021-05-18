@@ -30,10 +30,11 @@ def authenticate():
 
 def checkMentions(api, since_id):
     print("Checking for mentions ...")
-    new_since_id = since_id
+    searchQuery = '@threadRipperBot'
+    retweet_filter='-filter:retweets'
 
-    for tweet in tweepy.Cursor(api.mentions_timeline, since_id=since_id).items():
-        new_since_id = max(tweet.id, new_since_id)
+    for tweet in tweepy.Cursor(api.search,q=searchQuery+retweet_filter, since_id=since_id, timeout=90).items(50):
+    # for tweet in tweepy.Cursor(api.mentions_timeline, since_id=since_id).items():
         command = Utility.getCommandFromTweetText(tweet.text.lower())
         if command:
             Controller.evalCommand(api, tweet, command)

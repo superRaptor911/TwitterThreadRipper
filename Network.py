@@ -1,8 +1,8 @@
 import requests
 import json
 
-SERVER = "http://twitterthreadripper.ml/server"
-# SERVER = "http://twitterbot.com/server"
+# SERVER = "http://twitterthreadripper.ml/server"
+SERVER = "http://twitterbot.com/server"
 
 def uploadThreadToServer(username, threadID, thread):
     print("Uploading thread for user:" + username)

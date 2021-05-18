@@ -7,17 +7,17 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +1 main.py
+badd +3 main.py
 badd +16 setup.sh
 badd +2 Secret.py
 badd +45 Network.py
 badd +39 bot.py
-badd +19 Utility.py
-badd +1 botModules/Controller.py
-badd +86 botModules/SaveThread.py
+badd +5 Utility.py
+badd +5 botModules/Controller.py
+badd +1 botModules/ThreadSaver.py
 argglobal
 %argdel
-edit botModules/Controller.py
+edit Network.py
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -26,28 +26,13 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '2resize ' . ((&lines * 3 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 1 + 87) / 174)
-exe '3resize ' . ((&lines * 3 + 23) / 46)
-exe 'vert 3resize ' . ((&columns * 77 + 87) / 174)
 argglobal
-let s:l = 1 - ((0 * winheight(0) + 22) / 44)
+let s:l = 4 - ((3 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
-normal! 034|
-wincmd w
-argglobal
-enew
-wincmd w
-argglobal
-enew
-wincmd w
-exe '2resize ' . ((&lines * 3 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 1 + 87) / 174)
-exe '3resize ' . ((&lines * 3 + 23) / 46)
-exe 'vert 3resize ' . ((&columns * 77 + 87) / 174)
+4
+normal! 0
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
