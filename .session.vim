@@ -10,14 +10,14 @@ set shortmess=aoO
 badd +3 main.py
 badd +16 setup.sh
 badd +2 Secret.py
-badd +45 Network.py
-badd +39 bot.py
-badd +5 Utility.py
+badd +17 Network.py
+badd +49 bot.py
+badd +40 Utility.py
 badd +5 botModules/Controller.py
-badd +1 botModules/ThreadSaver.py
+badd +108 botModules/ThreadSaver.py
 argglobal
 %argdel
-edit Network.py
+edit botModules/ThreadSaver.py
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -27,12 +27,12 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-let s:l = 4 - ((3 * winheight(0) + 21) / 43)
+let s:l = 107 - ((38 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-4
-normal! 0
+107
+normal! 05|
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

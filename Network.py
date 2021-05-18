@@ -1,5 +1,6 @@
 import requests
 import json
+import Utility
 
 # SERVER = "http://twitterthreadripper.ml/server"
 SERVER = "http://twitterbot.com/server"
@@ -7,7 +8,11 @@ SERVER = "http://twitterbot.com/server"
 def uploadThreadToServer(username, threadID, thread):
     print("Uploading thread for user:" + username)
     serverResponse = requests.post(f"{SERVER}/threads.php", json = {"type" :"addThread",
-        "name": username, "threadID": threadID, "thread": json.dumps(thread)})
+        "name": username,
+        "threadID": threadID,
+        "thread": json.dumps(thread),
+        "title": Utility.truncText(thread["tweet"]["text"], 20)
+        })
 
     if serverResponse.status_code != 200:
         print('Error: Request to server failed')
