@@ -23,6 +23,18 @@ def extractTextFromTweet(tweet, isExtended = True):
     return text
 
 
+def extractMediaFromTweet(tweet):
+    media = ""
+    try:
+        media = tweet.entities['media'][0]["media_url_https"]
+    except AttributeError:
+        print("no media")
+    except KeyError:
+        print("no media")
+    return media
+
+
+
 def getCompactTweet(tweet, isExtended = True):
     return {
             "id": tweet.id_str,
@@ -34,6 +46,7 @@ def getCompactTweet(tweet, isExtended = True):
             "image_https": tweet.user.profile_image_url_https,
             "likes": tweet.favorite_count,
             "retweets": tweet.retweet_count,
+            "media": extractMediaFromTweet(tweet)
     }
 
 
