@@ -12,12 +12,13 @@ badd +16 setup.sh
 badd +2 Secret.py
 badd +17 Network.py
 badd +49 bot.py
-badd +40 Utility.py
-badd +5 botModules/Controller.py
-badd +108 botModules/ThreadSaver.py
+badd +34 Utility.py
+badd +2 botModules/Controller.py
+badd +107 botModules/ThreadSaver.py
+badd +8 botModules/Debug.py
 argglobal
 %argdel
-edit botModules/ThreadSaver.py
+edit botModules/Controller.py
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -27,12 +28,12 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-let s:l = 107 - ((38 * winheight(0) + 21) / 43)
+let s:l = 3 - ((2 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-107
-normal! 05|
+3
+normal! 0
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

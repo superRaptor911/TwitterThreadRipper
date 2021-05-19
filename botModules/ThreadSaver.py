@@ -106,5 +106,4 @@ def main(api, originTweet, args):
         saveFullThread(api, originTweet)
     else:
         saveThread(api, originTweet)
-        print("just save")
 
