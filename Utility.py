@@ -22,16 +22,32 @@ def extractTextFromTweet(tweet, isExtended = True):
         text = tweet.text
     return text
 
-
-def extractMediaFromTweet(tweet):
-    media = ""
+def extractVideosFromTweet(tweet):
+    videoUrls = []
     try:
-        media = tweet.entities['media'][0]["media_url_https"]
+        media = tweet.extended_entities['media'][0]
+        if media["type"] == "video":
+            files = []
+            for i in media["video_info"]["variants"]:
+                files.append(i["url"])
+            videoUrls.append(files)
     except AttributeError:
         print("no media")
     except KeyError:
         print("no media")
-    return media
+    return videoUrls
+
+
+def extractImagesFromTweet(tweet):
+    images = []
+    try:
+        for media in tweet.extended_entities['media']:
+            images.append(media["media_url_https"])
+    except AttributeError:
+        print("no media")
+    except KeyError:
+        print("no media")
+    return images
 
 
 
@@ -46,7 +62,8 @@ def getCompactTweet(tweet, isExtended = True):
             "image_https": tweet.user.profile_image_url_https,
             "likes": tweet.favorite_count,
             "retweets": tweet.retweet_count,
-            "media": extractMediaFromTweet(tweet)
+            "images": extractImagesFromTweet(tweet),
+            "videos": extractVideosFromTweet(tweet)
     }
 
 

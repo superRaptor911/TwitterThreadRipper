@@ -1,7 +1,8 @@
-
 def printTweet(tweet):
     try:
-        print(tweet.entities['media'][0]["media_url_https"])
+        media = tweet.extended_entities['media']
+        for i in media:
+            print(i["media_url_https"])
     except AttributeError:
         print("no media")
     except KeyError:
