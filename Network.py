@@ -74,3 +74,17 @@ def unlockThreadID(threadID):
         print(f"Unlocked Thread : {threadID}")
     else:
         print(f'Error: failed to unlock Thread ID : {threadID}')
+
+
+def pingServer(botName: str):
+    serverResponse = requests.post(f"{SERVER}/bot.php", json = {"type" :"ping", "botName": botName})
+    if serverResponse.status_code != 200:
+        print('Error: Request to server failed. exiting')
+        quit(1)
+
+    result = json.loads(serverResponse.text)
+    if result["result"] == True:
+        print("Pinged Server")
+    else:
+        print('Error: failed to ping server')
+        print(serverResponse.text)
