@@ -39,7 +39,6 @@ def checkMentions(api, since_id):
         command = Utility.getCommandFromTweetText(tweet.text.lower())
         if command:
             Controller.evalCommand(api, tweet, command)
-            time.sleep(2)
         Network.pingServer(BOT_ID)
     Network.pingServer(BOT_ID)
 
@@ -48,6 +47,11 @@ def checkMentions(api, since_id):
 def startBot(api):
     while True:
         fromID = Network.getLastProcessedThreadID()
-        checkMentions(api,fromID)
+        try:
+            checkMentions(api,fromID)
+        except tweepy.TweepError as e:
+            print(e.reason)
+            print("Fatal Error: connection failed\nWaitng 120 secs")
+            time.sleep(120)
         print("Waiting 60 seconds.....")
         time.sleep(60)
