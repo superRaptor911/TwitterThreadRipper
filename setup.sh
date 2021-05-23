@@ -30,7 +30,10 @@ fi
 echo "Do you want to generate Virtual environment? (y/n)"
 read choice
 if [[ $choice=="y" ]]; then
-    
+    python3 -m venv env
+    source env1/bin/activate
+    pip install -r ./requirements.txt
+    deactivate
 fi
 
 echo "Bot Config Done!"
