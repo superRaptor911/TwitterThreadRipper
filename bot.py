@@ -29,11 +29,11 @@ def setupProfileKeys(profile):
                 global ACCESS_TOKEN
                 global ACCESS_TOKEN_PRIVATE
 
-                AUTH_HANDLER_KEY = p.AUTH_HANDLER_KEY
-                AUTH_HANDLER_PRIVATE_KEY = p.AUTH_HANDLER_PRIVATE_KEY
-                ACCESS_TOKEN = p.ACCESS_TOKEN
-                ACCESS_TOKEN_PRIVATE = p.ACCESS_TOKEN_PRIVATE
-
+                AUTH_HANDLER_KEY = p[0]
+                AUTH_HANDLER_PRIVATE_KEY = p[1]
+                ACCESS_TOKEN = p[2]
+                ACCESS_TOKEN_PRIVATE = p[3]
+                print("Using profile " + profile)
             else:
                 print("Error: Profile not found")
                 exit(1)

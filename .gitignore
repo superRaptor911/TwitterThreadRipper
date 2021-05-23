@@ -1,4 +1,6 @@
 Secret.py
 __pycache__/
 venv/
+env/
 *.json
+*.txt
