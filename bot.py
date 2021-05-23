@@ -5,16 +5,46 @@ import Secret
 import time
 import Network
 import Utility
+import json
 from botModules import Controller
 
-Current_reccursion_level = 0
-Tweets_processed_in_reccursion = 0
 BOT_ID = str(uuid.uuid1())
 
+AUTH_HANDLER_KEY = Secret.AUTH_HANDLER_KEY
+AUTH_HANDLER_PRIVATE_KEY = Secret.AUTH_HANDLER_PRIVATE_KEY
+
+ACCESS_TOKEN = Secret.ACCESS_TOKEN
+ACCESS_TOKEN_PRIVATE = Secret.ACCESS_TOKEN_PRIVATE
+
+# Load profile
+def setupProfileKeys(profile):
+    if profile:
+        file = open("secret.json", 'r')
+        if file:
+            data = json.load(file)
+            if profile in data:
+                p = data[profile]
+                global AUTH_HANDLER_KEY
+                global AUTH_HANDLER_PRIVATE_KEY
+                global ACCESS_TOKEN
+                global ACCESS_TOKEN_PRIVATE
+
+                AUTH_HANDLER_KEY = p.AUTH_HANDLER_KEY
+                AUTH_HANDLER_PRIVATE_KEY = p.AUTH_HANDLER_PRIVATE_KEY
+                ACCESS_TOKEN = p.ACCESS_TOKEN
+                ACCESS_TOKEN_PRIVATE = p.ACCESS_TOKEN_PRIVATE
+
+            else:
+                print("Error: Profile not found")
+                exit(1)
+
 # Authentication
-def authenticate():
-    auth = tweepy.OAuthHandler(Secret.AUTH_HANDLER_KEY, Secret.AUTH_HANDLER_PRIVATE_KEY)
-    auth.set_access_token(Secret.ACCESS_TOKEN, Secret.ACCESS_TOKEN_PRIVATE)
+def authenticate(profile):
+    setupProfileKeys(profile)
+
+
+    auth = tweepy.OAuthHandler(AUTH_HANDLER_KEY, AUTH_HANDLER_PRIVATE_KEY)
+    auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_PRIVATE)
 
     api = tweepy.API(auth)
     try:
@@ -45,13 +75,17 @@ def checkMentions(api, since_id):
 
 
 def startBot(api):
+    retryCount = 0
     while True:
         fromID = Network.getLastProcessedThreadID()
         try:
             checkMentions(api,fromID)
+            retryCount = max(0, retryCount - 1)
         except tweepy.TweepError as e:
             print(e.reason)
-            print("Fatal Error: connection failed\nWaitng 120 secs")
-            time.sleep(120)
+            retryCount += 1
+            print(f"Fatal Error: connection failed\nWaitng {120 * retryCount} secs")
+            time.sleep(120 * retryCount)
+            retryCount = min(retryCount, 10)
         print("Waiting 60 seconds.....")
         time.sleep(60)
