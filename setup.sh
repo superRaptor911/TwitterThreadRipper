@@ -3,7 +3,7 @@
 echo "--------------BOT SETUP--------------------------"
 echo "Do you want to generate keys? (y/n)"
 read choice
-if [[ $choice=="y" ]]; then
+if [[ $choice == "y" ]]; then
     echo "Enter AUTH_HANDLER_KEY"
     read AUTH_HANDLER_KEY
 
@@ -22,16 +22,16 @@ fi
 
 echo "Do you want to download pip and venv? (y/n)"
 read choice
-if [[ $choice=="y" ]]; then
+if [[ $choice == "y" ]]; then
     sudo apt install -y python3-pip python3-venv
     echo "Installed PIP and VENV!!"
 fi
 
 echo "Do you want to generate Virtual environment? (y/n)"
 read choice
-if [[ $choice=="y" ]]; then
+if [[ $choice == "y" ]]; then
     python3 -m venv env
-    source env1/bin/activate
+    source env/bin/activate
     pip install -r ./requirements.txt
     deactivate
 fi
