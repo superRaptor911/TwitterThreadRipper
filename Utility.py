@@ -29,7 +29,8 @@ def extractVideosFromTweet(tweet):
         if media["type"] == "video":
             files = []
             for i in media["video_info"]["variants"]:
-                files.append(i["url"])
+                if "bitrate" in i:
+                    files.append({"bitrate" : i["bitrate"], "link": i["url"]})
             videoUrls.append(files)
     except AttributeError:
         print("no media")

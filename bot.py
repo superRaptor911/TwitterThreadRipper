@@ -1,4 +1,5 @@
 import tweepy
+import uuid
 import Network
 import Secret
 import time
@@ -8,6 +9,7 @@ from botModules import Controller
 
 Current_reccursion_level = 0
 Tweets_processed_in_reccursion = 0
+BOT_ID = str(uuid.uuid1())
 
 # Authentication
 def authenticate():
@@ -34,10 +36,12 @@ def checkMentions(api, since_id):
     retweet_filter='-filter:retweets'
 
     for tweet in tweepy.Cursor(api.search,q=searchQuery+retweet_filter, since_id=since_id, timeout=90).items(50):
-    # for tweet in tweepy.Cursor(api.mentions_timeline, since_id=since_id).items():
         command = Utility.getCommandFromTweetText(tweet.text.lower())
         if command:
             Controller.evalCommand(api, tweet, command)
+            time.sleep(2)
+        Network.pingServer(BOT_ID)
+    Network.pingServer(BOT_ID)
 
 
 

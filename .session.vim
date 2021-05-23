@@ -7,19 +7,14 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +3 main.py
-badd +16 setup.sh
-badd +2 Secret.py
-badd +7 Network.py
-badd +49 bot.py
-badd +47 Utility.py
-badd +7 botModules/Controller.py
-badd +88 botModules/ThreadSaver.py
-badd +14 botModules/Debug.py
-badd +1 botModules/VideoSaver.py
+badd +32 setup.sh
+badd +79 Network.py
+badd +127 botModules/ThreadSaver.py
+badd +15 bot.py
 argglobal
 %argdel
-edit botModules/Debug.py
+$argadd setup.sh
+edit setup.sh
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -29,12 +24,12 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-let s:l = 1 - ((0 * winheight(0) + 21) / 43)
+let s:l = 36 - ((35 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
-normal! 0
+36
+normal! 05|
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

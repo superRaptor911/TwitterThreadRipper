@@ -67,6 +67,26 @@ def getThreadTree(api, root):
     threadTree = getReplies(api, root)
     return threadTree
 
+def sendThreadSavedMessage(api, originTweet):
+    threadID = originTweet.id_str
+    username = originTweet.user.screen_name
+    text = f"""@{username} I saved your Twitter thread.
+View ur saved thread: https://twitterthreadripper.ga/thread/{threadID}
+
+Login to keep track of ur saved threads: https://twitterthreadripper.ga
+"""
+    try:
+        if not originTweet.user.following:
+            print("Following : " + username)
+            originTweet.user.follow()
+
+        api.update_status(
+            status = text,
+            in_reply_to_status_id = originTweet.id,
+        )
+    except:
+        print("Failed to Send Message")
+
 
 def saveFullThread(api, originTweet):
     threadID = originTweet.id_str
@@ -80,7 +100,8 @@ def saveFullThread(api, originTweet):
             print("error: none root")
         else:
             Network.uploadThreadToServer(username, threadID, getThreadTree(api, root))
-            Network.unlockThreadID(threadID)
+            sendThreadSavedMessage(api, originTweet)
+        Network.unlockThreadID(threadID)
         print("\n")
 
 
@@ -97,7 +118,8 @@ def saveThread(api, originTweet):
             print("Empty Thread : for Thread id: " + threadID)
         else:
             Network.uploadThreadToServer(username, threadID, arrayToThreadTree(thread))
-            Network.unlockThreadID(threadID)
+            sendThreadSavedMessage(api, originTweet)
+        Network.unlockThreadID(threadID)
         print("\n")
 
 
