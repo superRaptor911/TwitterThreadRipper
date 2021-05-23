@@ -2,9 +2,9 @@ import bot
 import sys
 
 def main():
-    configFile = None
+    profile = None
     if len(sys.argv) > 1:
-        configFile = sys.argv[1]
+        profile = sys.argv[1]
     api = bot.authenticate(profile)
     bot.startBot(api)
 

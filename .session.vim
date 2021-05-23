@@ -9,12 +9,14 @@ endif
 set shortmess=aoO
 badd +36 setup.sh
 badd +6 Network.py
-badd +127 botModules/ThreadSaver.py
-badd +15 bot.py
+badd +74 botModules/ThreadSaver.py
+badd +36 bot.py
+badd +7 main.py
+badd +1 Secret.py
 argglobal
 %argdel
 $argadd setup.sh
-edit botModules/ThreadSaver.py
+edit main.py
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -24,12 +26,12 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-let s:l = 6 - ((5 * winheight(0) + 21) / 43)
+let s:l = 7 - ((6 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-6
-normal! 0
+7
+normal! 015|
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
