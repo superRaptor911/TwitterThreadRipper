@@ -1,6 +1,9 @@
 import requests
+import uuid
 import json
 import Utility
+
+BOT_ID = str(uuid.uuid1())
 
 # SERVER = "http://twitterthreadripper.ml/server"
 SERVER = "http://twitterbot.com/server"
@@ -76,8 +79,13 @@ def unlockThreadID(threadID):
         print(f'Error: failed to unlock Thread ID : {threadID}')
 
 
-def pingServer(botName: str):
-    serverResponse = requests.post(f"{SERVER}/bot.php", json = {"type" :"ping", "botName": botName})
+def pingServer(status: str = "IDLE"):
+    serverResponse = requests.post(f"{SERVER}/bot.php", json = {
+        "type" :"ping",
+        "botName": BOT_ID,
+        "status": status
+        })
+
     if serverResponse.status_code != 200:
         print('Error: Request to server failed. exiting')
         quit(1)

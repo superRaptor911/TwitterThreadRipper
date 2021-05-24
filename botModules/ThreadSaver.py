@@ -2,6 +2,7 @@ import Network
 import tweepy
 import Utility
 import time
+from botModules import MediaSaver
 
 Current_reccursion_level = 0
 Tweets_processed_in_reccursion = 0
@@ -63,9 +64,10 @@ def getReplies(api, parentTweet):
                             replies.append(getReplies(api, tweet))
             break
         except tweepy.TweepError as e:
+            retryCount += 1
             print(e.reason)
             print(f"Fatal Error: connection failed\nWaitng {60 * retryCount} secs")
-            retryCount += 1
+            Network.pingServer(f"WARNING: RATE LIMITER HIT, WAITING {60 * retryCount}")
             time.sleep(60 * retryCount)
 
     Current_reccursion_level -= 1
@@ -142,7 +144,12 @@ def saveThread(api, originTweet):
 
 def main(api, originTweet, args):
     if 'full' in args:
+        Network.pingServer("SAVING THREAD FULL")
         saveFullThread(api, originTweet)
+    elif 'video' in args:
+        Network.pingServer("SAVING VIDEO")
+        MediaSaver.saveVideo(api, originTweet)
     else:
+        Network.pingServer("SAVING THREAD")
         saveThread(api, originTweet)
 

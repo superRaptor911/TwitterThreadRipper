@@ -1,5 +1,4 @@
 import tweepy
-import uuid
 import Network
 import Secret
 import time
@@ -8,7 +7,6 @@ import Utility
 import json
 from botModules import Controller
 
-BOT_ID = str(uuid.uuid1())
 
 AUTH_HANDLER_KEY = Secret.AUTH_HANDLER_KEY
 AUTH_HANDLER_PRIVATE_KEY = Secret.AUTH_HANDLER_PRIVATE_KEY
@@ -69,8 +67,8 @@ def checkMentions(api, since_id):
         command = Utility.getCommandFromTweetText(tweet.text.lower())
         if command:
             Controller.evalCommand(api, tweet, command)
-        Network.pingServer(BOT_ID)
-    Network.pingServer(BOT_ID)
+        Network.pingServer("LOOKING FOR MENTION")
+    Network.pingServer()
 
 
 
@@ -82,9 +80,10 @@ def startBot(api):
             checkMentions(api,fromID)
             retryCount = max(0, retryCount - 1)
         except tweepy.TweepError as e:
-            print(e.reason)
             retryCount += 1
+            print(e.reason)
             print(f"Fatal Error: connection failed\nWaitng {120 * retryCount} secs")
+            Network.pingServer(f"WARNING: RATE LIMITER HIT, WAITING {60 * retryCount}")
             time.sleep(120 * retryCount)
             retryCount = min(retryCount, 10)
         print("Waiting 60 seconds.....")
