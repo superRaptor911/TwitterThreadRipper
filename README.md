@@ -43,8 +43,27 @@ reply from our bot when your request is completed)
 1. Explaining the working of project
 2. Embed video of project demo
 ## Libraries used
-Library Name - Version
+
+* certifi==2020.12.5
+* chardet==4.0.0
+* idna==2.10
+* oauthlib==3.1.0
+* PySocks==1.7.1
+* requests==2.25.1
+* requests-oauthlib==1.3.0
+* six==1.16.0
+* tweepy==3.10.0
+* urllib3==1.26.4
+
 ## How to configure
-Instructions for setting up project
+
+**Note: Tested only on Debian based distos and python 3.8+ is recommended**
+
+If your running this for the first time run `./Setup.sh`. Enter your API Keys for Twitter and
+Virtual env will be generated for you.
+
 ## How to Run
-Instructions for running
+
+1. Enable Virtual env: `source env/bin/activate` (if you are using fish shell use activate.fish) 
+1. Run `python3 main.py` to run the bot
+
