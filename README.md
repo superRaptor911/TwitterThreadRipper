@@ -41,9 +41,7 @@ reply from our bot when your request is completed)
 
 ## Link to product walkthrough
 
-<video width="320" height="240" controls>
-  <source src="https://twitterthreadripper.ga/server/bfg.mp4" type="video/mp4">
-</video>
+https://user-images.githubusercontent.com/58220198/119441370-a6925b00-bd43-11eb-83a7-edb32f5b3524.mp4
 
 [Project Walkthrough](https://twitterthreadripper.ga/server/bfg.mp4)
 
