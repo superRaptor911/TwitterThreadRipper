@@ -41,7 +41,11 @@ reply from our bot when your request is completed)
 
 ## Link to product walkthrough
 
+### Video Preview
+
 https://user-images.githubusercontent.com/58220198/119441370-a6925b00-bd43-11eb-83a7-edb32f5b3524.mp4
+
+### Video Link
 
 [Project Walkthrough](https://twitterthreadripper.ga/server/bfg.mp4)
 
