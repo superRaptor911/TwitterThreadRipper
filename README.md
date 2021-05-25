@@ -3,7 +3,7 @@
 
 Site: [TwitterThreadRipper](https://twitterthreadripper.ga)
 
-Thread Ripper Bot is a twitter bot which is a part of ThreadRipperBot Net. Thread Ripper bot's task
+Thread Ripper Bot is a twitter bot which is a part of [ThreadRipperBot Net](https://github.com/superRaptor911/super-raptor-bot-website). Thread Ripper bot's task
 is to rip threads from Twitter and submit them to BotNet Server .
 
 Server Repo: [repo](https://github.com/superRaptor911/super-raptor-bot-website)
