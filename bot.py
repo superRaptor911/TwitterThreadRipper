@@ -28,7 +28,7 @@ def authenticate():
     return api
 
 
-
+#to check draft pr
 
 def checkMentions(api, since_id):
     print("Checking for mentions ...")
